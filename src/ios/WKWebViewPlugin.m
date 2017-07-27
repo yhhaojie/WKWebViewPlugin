@@ -22,10 +22,14 @@
 - (void)openPage:(CDVInvokedUrlCommand *)command{
     NSDictionary *dict  = [command argumentAtIndex:0 withDefault:nil];
     if (dict) {
+        //dict[@"url"]
         _callbackId = [command.callbackId copy];
         self.array = [NSMutableArray array];
         
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[OpenPageViewController alloc] init]];
+        OpenPageViewController *openPageVC = [[OpenPageViewController alloc] init];
+        openPageVC.url = dict[@"url"]
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:openPageVC];
+        
         [self presentViewController:nav animated:YES completion:nil];
     }
 }

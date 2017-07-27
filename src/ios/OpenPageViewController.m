@@ -20,7 +20,7 @@
     [self setNav];
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     [webView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:webView];
     
@@ -37,7 +37,7 @@
     
     [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(dismissVC) frame:CGRectMake(0, 0, 15, 25)]];
     
-    [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
+//    [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
 }
 
 - (UIBarButtonItem *)customBarBtnItemWithImageName:(NSString *)imageName action:(SEL)action frame:(CGRect)rect{
