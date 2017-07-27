@@ -22,29 +22,15 @@
 - (void)openPage:(CDVInvokedUrlCommand *)command{
     NSDictionary *dict  = [command argumentAtIndex:0 withDefault:nil];
     if (dict) {
-        //dict[@"url"]
+        NSAssert(dict[@"url"], @"WKWebViewPlugin's url can not be empty");
         _callbackId = [command.callbackId copy];
         self.array = [NSMutableArray array];
         
         OpenPageViewController *openPageVC = [[OpenPageViewController alloc] init];
-        openPageVC.url = dict[@"url"]
+        openPageVC.url = dict[@"url"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:openPageVC];
         
-        [self presentViewController:nav animated:YES completion:nil];
+        [self.viewController presentViewController:nav animated:YES completion:nil];
     }
-}
-
-- (void)getContactInfo:(BOOL)isGranted{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if(isGranted){
-        NSData *data = [NSJSONSerialization dataWithJSONObject:self.array options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [dict setObject:str forKey:@"contacts"];
-        [dict setObject:@(self.array.count) forKey:@"totalCount"];
-    }else{
-        [dict setObject:@(-1) forKey:@"totalCount"];
-    }
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
-    [self.commandDelegate sendPluginResult:result callbackId:self.callbackId];
 }
 @end
