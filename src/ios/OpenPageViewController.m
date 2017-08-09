@@ -31,7 +31,7 @@
 }
 
 - (void)setNav{
-    self.title = _title;
+    self.title = _pageTitle;
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
