@@ -31,7 +31,7 @@
 }
 
 - (void)setNav{
-    self.title = @"消息";
+    self.title = _title;
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     

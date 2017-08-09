@@ -22,12 +22,13 @@
 - (void)openPage:(CDVInvokedUrlCommand *)command{
     NSDictionary *dict  = [command argumentAtIndex:0 withDefault:nil];
     if (dict) {
-        NSAssert(dict[@"url"], @"WKWebViewPlugin's url can not be empty");
+        NSAssert(dict[@"URL"], @"WKWebViewPlugin's url can not be empty");
         _callbackId = [command.callbackId copy];
         self.array = [NSMutableArray array];
         
         OpenPageViewController *openPageVC = [[OpenPageViewController alloc] init];
-        openPageVC.url = dict[@"url"];
+        openPageVC.url = dict[@"URL"];
+        openPageVC.title = dict[@"title"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:openPageVC];
         
         [self.viewController presentViewController:nav animated:YES completion:nil];
