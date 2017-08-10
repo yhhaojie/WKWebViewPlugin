@@ -28,7 +28,7 @@
         
         _opvc = [[OpenPageViewController alloc] init];
         _opvc.url = dict[@"URL"];
-        _opvc.title = dict[@"title"];
+        _opvc.pageTitle = dict[@"title"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_opvc];
         
         [self.viewController presentViewController:nav animated:YES completion:nil];
