@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol OpenPageViewControllerDelegate <NSObject>
+
+- (void)popCallback:(NSDictionary *)dict;
+
+@end
+
 @interface OpenPageViewController : UIViewController
 @property (nonatomic, copy)NSString *url;
 @property (nonatomic, copy)NSString *pageTitle;
+
+- (void)dismissVC;
+
 @end

@@ -9,11 +9,11 @@
 #import "WKWebViewPlugin.h"
 #import "OpenPageViewController.h"
 
-@interface WKWebViewPlugin()
+@interface WKWebViewPlugin()<OpenPageViewControllerDelegate>
 
 @property (nonatomic, copy) NSString *callbackId;
 @property (nonatomic, strong) NSMutableArray *array;
-
+@property (strong, nonatomic)OpenPageViewController *opvc;
 @end
 
 
@@ -23,15 +23,25 @@
     NSDictionary *dict  = [command argumentAtIndex:0 withDefault:nil];
     if (dict) {
         NSAssert(dict[@"URL"], @"WKWebViewPlugin's url can not be empty");
-        _callbackId = [command.callbackId copy];
+        self.callbackId = [command.callbackId copy];
         self.array = [NSMutableArray array];
         
-        OpenPageViewController *openPageVC = [[OpenPageViewController alloc] init];
-        openPageVC.url = dict[@"URL"];
-        openPageVC.title = dict[@"title"];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:openPageVC];
+        _opvc = [[OpenPageViewController alloc] init];
+        _opvc.url = dict[@"URL"];
+        _opvc.title = dict[@"title"];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_opvc];
         
         [self.viewController presentViewController:nav animated:YES completion:nil];
     }
+}
+
+- (void)popCallback:(NSDictionary *)dict{
+    [self sendResult:dict];
+    [_opvc dismissVC];
+}
+
+-(void)sendResult:(NSDictionary*) resultDict{
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:nil];
+    [self.commandDelegate sendPluginResult:result callbackId:_callbackId];
 }
 @end
