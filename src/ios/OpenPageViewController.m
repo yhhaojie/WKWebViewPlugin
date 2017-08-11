@@ -44,10 +44,11 @@
             [strongSelf back];
         });
         //不允许跳转
-        decisionHandler(WKNavigationResponsePolicyCancel);
-    }else{
-        decisionHandler(WKNavigationResponsePolicyAllow);
+//        decisionHandler(WKNavigationResponsePolicyCancel);
     }
+//    else{
+        decisionHandler(WKNavigationResponsePolicyAllow);
+//    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
