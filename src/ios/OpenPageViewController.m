@@ -9,7 +9,7 @@
 #import "OpenPageViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface OpenPageViewController ()
+@interface OpenPageViewController ()<WKNavigationDelegate>
 
 @end
 
@@ -24,6 +24,23 @@
     [webView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:webView];
     
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
+    if ([navigationResponse.response.URL.absoluteString isEqualToString:@"10.0.68.202/ods/zmxy/zhima_authInfo_req/"]) {
+        dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)3.0 * NSEC_PER_SEC);
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//        dispatch_async(queue, ^{
+//           
+//        });
+        __weak __typeof(self) weakSelf = self;
+        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+            __strong __typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf dismissVC];
+        });
+        //不允许跳转
+        decisionHandler(WKNavigationResponsePolicyCancel);
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
@@ -51,7 +68,9 @@
 }
 
 - (void)dismissVC{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(popCallback:)]) {
+        [self.delegate popCallback:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

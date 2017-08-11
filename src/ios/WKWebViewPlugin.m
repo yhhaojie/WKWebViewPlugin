@@ -41,7 +41,7 @@
 }
 
 -(void)sendResult:(NSDictionary*) resultDict{
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:nil];
+    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDict];
     [self.commandDelegate sendPluginResult:result callbackId:_callbackId];
 }
 @end

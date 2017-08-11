@@ -17,6 +17,7 @@
 @interface OpenPageViewController : UIViewController
 @property (nonatomic, copy)NSString *url;
 @property (nonatomic, copy)NSString *pageTitle;
+@property (nonatomic, weak)id<OpenPageViewControllerDelegate> delegate;
 
 - (void)dismissVC;
 
