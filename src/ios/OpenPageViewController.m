@@ -20,6 +20,7 @@
     [self setNav];
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    webView.navigationDelegate = self;
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
     [webView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:webView];
@@ -27,7 +28,11 @@
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler{
-    if ([navigationResponse.response.URL.absoluteString isEqualToString:@"10.0.68.202/ods/zmxy/zhima_authInfo_req/"]) {
+    if (!_host) {
+        decisionHandler(WKNavigationResponsePolicyAllow);
+        return;
+    }
+    if ([navigationResponse.response.URL.absoluteString containsString:_host]) {
         dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)3.0 * NSEC_PER_SEC);
 //        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 //        dispatch_async(queue, ^{
@@ -36,10 +41,12 @@
         __weak __typeof(self) weakSelf = self;
         dispatch_after(delayTime, dispatch_get_main_queue(), ^{
             __strong __typeof(weakSelf) strongSelf = weakSelf;
-            [strongSelf dismissVC];
+            [strongSelf back];
         });
         //不允许跳转
         decisionHandler(WKNavigationResponsePolicyCancel);
+    }else{
+        decisionHandler(WKNavigationResponsePolicyAllow);
     }
 }
 
@@ -52,7 +59,7 @@
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(dismissVC) frame:CGRectMake(0, 0, 15, 25)]];
+    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(back) frame:CGRectMake(0, 0, 15, 25)]];
     
 //    [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
 }
@@ -67,10 +74,14 @@
     return leftBarItem;
 }
 
-- (void)dismissVC{
+- (void)back{
     if ([self.delegate respondsToSelector:@selector(popCallback:)]) {
         [self.delegate popCallback:nil];
     }
+}
+
+- (void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -27,8 +27,10 @@
         self.array = [NSMutableArray array];
         
         _opvc = [[OpenPageViewController alloc] init];
+        _opvc.delegate = self;
         _opvc.url = dict[@"URL"];
         _opvc.pageTitle = dict[@"title"];
+        _opvc.host = dict[@"host"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:_opvc];
         
         [self.viewController presentViewController:nav animated:YES completion:nil];
