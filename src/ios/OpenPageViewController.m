@@ -9,8 +9,8 @@
 #import "OpenPageViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface OpenPageViewController ()<WKNavigationDelegate>
-
+@interface OpenPageViewController ()<WKNavigationDelegate,WKUIDelegate>
+@property (nonatomic,strong) WKWebView *webView;
 @end
 
 @implementation OpenPageViewController
@@ -19,11 +19,12 @@
     [super viewDidLoad];
     [self setNav];
     
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-    webView.navigationDelegate = self;
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
-    [webView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:webView];
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.navigationDelegate = self;
+    self.webView.UIDelegate = self;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
+    [self.webView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:self.webView];
     
 }
 
@@ -75,6 +76,17 @@
     return leftBarItem;
 }
 
+#pragma mark - WKUIDelegate
+
+- (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {
+    WKFrameInfo *frameInfo = navigationAction.targetFrame;
+    if (![frameInfo isMainFrame]) {
+        [webView loadRequest:navigationAction.request];
+    }
+    return nil;
+}
+
+
 - (void)back{
     if ([self.delegate respondsToSelector:@selector(popCallback:)]) {
         [self.delegate popCallback:nil];
@@ -82,7 +94,12 @@
 }
 
 - (void)dismissVC{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.webView.canGoBack) {
+        [self.webView goBack];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
