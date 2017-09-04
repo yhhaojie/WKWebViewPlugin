@@ -61,7 +61,7 @@
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
-    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(back) frame:CGRectMake(0, 0, 15, 25)]];
+    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(navBack) frame:CGRectMake(0, 0, 15, 25)]];
     
 //    [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
 }
@@ -94,12 +94,15 @@
 }
 
 - (void)dismissVC{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)navBack {
     if (self.webView.canGoBack) {
         [self.webView goBack];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-    
 }
 
 - (void)didReceiveMemoryWarning {
