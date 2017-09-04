@@ -1,5 +1,5 @@
 {
-  "name": "cn.yonghui.WKWebViewPlugin”,
+  "name": "cn.yonghui.WKWebViewPlugin",
   "version": "1.0.0",
   "description": "cordova project add plugin with WKWebViewPlugin.",
   "cordova": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wencun/cordova-ios-plugin-contact.git"
+    "url": "git+https://github.com/wencun/WKWebViewPlugin.git"
   },
   "keywords": [
     "cordova",
@@ -26,7 +26,7 @@
   "author": "wencun",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wencun/cordova-ios-plugin-contact/issues"
+    "url": "https://github.com/wencun/WKWebViewPlugin/issues"
   },
-  "homepage": "https://github.com/wencun/cordova-ios-plugin-contact/blob/master/README.md"
+  "homepage": "https://github.com/wencun/WKWebViewPlugin/blob/master/README.md"
 }
