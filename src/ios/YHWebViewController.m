@@ -49,10 +49,12 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self clearCache];
 }
 
@@ -85,7 +87,6 @@
     self.webView.UIDelegate = self;
     [self.webView setBackgroundColor:[UIColor whiteColor]];
     [self.webView loadRequest: urlRequest];
-    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     [self.view addSubview:self.webView];
 }
 
