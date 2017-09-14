@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.YHload.WKWebViewPlugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.yhload.WKWebViewPlugin" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>WKWebViewPlugin</name>
     <js-module name="WKWebViewPlugin" src="www/WKWebViewPlugin.js">
         <clobbers target="cordova.plugins.WKWebViewPlugin" />
@@ -16,6 +16,10 @@
         <!-- 引入的.h .m 文件 -->
         <header-file src="src/ios/OpenPageViewController.h" />
         <source-file src="src/ios/OpenPageViewController.m"/>
+
+        <header-file src="src/ios/YHWebViewController.h" />
+        <source-file src="src/ios/YHWebViewController.m"/>
+
         <header-file src="src/ios/WKWebViewPlugin.h" />
         <source-file src="src/ios/WKWebViewPlugin.m"/>
         

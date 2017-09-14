@@ -9,5 +9,9 @@
 #import <Cordova/CDV.h>
 
 @interface WKWebViewPlugin : CDVPlugin
+
 - (void)openPage:(CDVInvokedUrlCommand *)command;
+
+- (void)openYhWebView:(CDVInvokedUrlCommand *)command;
+
 @end
