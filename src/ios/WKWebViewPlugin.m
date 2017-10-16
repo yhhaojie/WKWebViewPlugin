@@ -63,7 +63,9 @@
         YHWebViewController *webViewC = [[YHWebViewController alloc] initWithTitle:pageTitle urlStr:url runJsCode:runJsCode];
         UINavigationController *navC = [[UINavigationController alloc] initWithRootViewController:webViewC];
         navC.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
-        navC.navigationBar.barStyle = UIBarStyleBlack;
+        navC.navigationBar.barTintColor = [UIColor blackColor];
+        navC.navigationBar.translucent = NO;
+        navC.navigationBar.barStyle = UIStatusBarStyleLightContent;
 
         [self.viewController presentViewController:navC animated:YES completion:^{}];
     }

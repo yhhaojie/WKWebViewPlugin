@@ -63,8 +63,8 @@
 - (void)addNavBack {
     [self.navigationItem setHidesBackButton:YES];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(15, 5, 22, 38);
-    [btn setBackgroundImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+    btn.frame = CGRectMake(0, 0, 11, 22);
+    [btn setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [btn addTarget:self action: @selector(navBack) forControlEvents: UIControlEventTouchUpInside];
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.leftBarButtonItem=back;
@@ -92,7 +92,7 @@
 
 // 进度条 初始化
 - (void)addProgressView {
-    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 64, [[UIScreen mainScreen] bounds].size.width, 2)];
+    self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 2)];
     self.progressView.backgroundColor = [UIColor blueColor];
     //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的1.5倍.
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
@@ -114,7 +114,7 @@
 // 执行js代码
 - (void)exeJavaScript:(NSString*)exeJS {
     [self.webView evaluateJavaScript:exeJS completionHandler:^(id _Nullable id, NSError * _Nullable error) {
-        NSLog(@"success!");
+        
     }];
 }
 
@@ -208,7 +208,7 @@
     NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
     NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
-        NSLog(@"success!");
+        // NSLog(@"success!");
     }];
 }
 

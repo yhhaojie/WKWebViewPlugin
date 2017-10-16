@@ -60,18 +60,20 @@
     self.title = _pageTitle;
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
+    self.navigationController.navigationBar.translucent = NO;
     
-    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(navBack) frame:CGRectMake(0, 0, 15, 25)]];
-    
-//    [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
+    [self.navigationItem setLeftBarButtonItem:[self customBarBtnItemWithImageName:@"back" action:@selector(navBack) frame:CGRectMake(0, 0, 11, 22)]];
+    // [self.navigationItem setRightBarButtonItem:[self customBarBtnItemWithImageName:@"news" action:@selector(dismissVC) frame:CGRectMake(0, 0, 25, 25)]];
 }
 
 - (UIBarButtonItem *)customBarBtnItemWithImageName:(NSString *)imageName action:(SEL)action frame:(CGRect)rect{
-    UIImage* image= [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
+    UIImage* image= [UIImage imageNamed:imageName];
+
     UIButton *someButton= [[UIButton alloc] initWithFrame:rect];
     [someButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [someButton setBackgroundImage:image forState:UIControlStateNormal];
-//    [someButton setShowsTouchWhenHighlighted:YES];
+    // [someButton setShowsTouchWhenHighlighted:YES];
     UIBarButtonItem* leftBarItem= [[UIBarButtonItem alloc] initWithCustomView:someButton];
     return leftBarItem;
 }
