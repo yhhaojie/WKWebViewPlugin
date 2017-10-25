@@ -18,8 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNav];
-    
-    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    CGRect webRect = self.view.bounds;
+    webRect.size.height -= (statusBarHeight+navBarHeight);
+    self.webView = [[WKWebView alloc] initWithFrame:webRect];
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
