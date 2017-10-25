@@ -55,7 +55,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
-    [self clearCache];
+    // [self clearCache];
 }
 
 #pragma mark - cust foundation
@@ -209,12 +209,12 @@
 
 #pragma mark - clearCache 清除缓存
 
-- (void)clearCache {
-    NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
-    NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
-    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
-        // NSLog(@"success!");
-    }];
-}
+// - (void)clearCache {
+//     NSSet *websiteDataTypes = [WKWebsiteDataStore allWebsiteDataTypes];
+//     NSDate *dateFrom = [NSDate dateWithTimeIntervalSince1970:0];
+//     [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:websiteDataTypes modifiedSince:dateFrom completionHandler:^{
+//         // NSLog(@"success!");
+//     }];
+// }
 
 @end
